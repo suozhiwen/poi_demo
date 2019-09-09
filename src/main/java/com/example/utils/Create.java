@@ -344,9 +344,15 @@ public class Create {
         //行
         titleRow = sheet.createRow(7);
 
+
+        /**
+         * 从第 i+1 的竖列开始
+         * titleRow.createCell(i+1)
+         *
+         */
         //创建标题
         for (int i = 0; i < title.length; i++) {
-            titleCell = titleRow.createCell(i);
+            titleCell = titleRow.createCell(i+1);
             titleCell.setCellValue(title[i]);
         }
 
@@ -355,7 +361,7 @@ public class Create {
             titleRow = sheet.createRow(i + 8);
             for (int j = 0; j < content[i].length; j++) {
                 //将内容按顺序赋给对应的列对象
-                titleRow.createCell(j).setCellValue(content[i][j]);
+                titleRow.createCell(j+1).setCellValue(content[i][j]);
             }
         }
 
