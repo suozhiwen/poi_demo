@@ -1,20 +1,21 @@
 package com.example.utils;
 
+import com.example.entity.User;
+import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.WorkbookUtil;
 
 import java.io.*;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 
 public class Create {
 
     /*https://poi.apache.org/components/spreadsheet/quick-guide.html*/
     private static final String PATH = "D:/Excel/";
-
 
 
     /**
@@ -40,6 +41,7 @@ public class Create {
             e.printStackTrace();
         }
     }
+
     /**
      * 新表
      *
@@ -77,6 +79,7 @@ public class Create {
             e.printStackTrace();
         }
     }
+
     /**
      * 创建单元格
      */
@@ -100,6 +103,7 @@ public class Create {
         //将输出写入文件
         output.crate(wb, "CreatingCells");
     }
+
     /**
      * 创建日期单元格
      */
@@ -136,6 +140,7 @@ public class Create {
 
         output.crate(wb, "CreatingDateCells");
     }
+
     /**
      * Working with different types of cells
      * 测试不同的数据类型
@@ -153,6 +158,7 @@ public class Create {
         row.createCell(5).setCellType(CellType._NONE);
         output.crate(wb, "WorkingWithDifferentTypesOfCells");
     }
+
     /**
      * 演示各种对齐选项
      * Demonstrates various alignment options
@@ -173,15 +179,16 @@ public class Create {
          *http://poi.apache.org/apidocs/dev/org/apache/poi/ss/usermodel/VerticalAlignment.html
          */
         createCell(wb, row, 0, HorizontalAlignment.CENTER, VerticalAlignment.BOTTOM);
-        createCell(wb, row, 1,HorizontalAlignment.CENTER_SELECTION,VerticalAlignment.CENTER);
-        createCell(wb, row, 2,HorizontalAlignment.FILL,VerticalAlignment.CENTER);
-        createCell(wb, row, 3,HorizontalAlignment.FILL,VerticalAlignment.CENTER);
-        createCell(wb, row, 4,HorizontalAlignment.JUSTIFY,VerticalAlignment.JUSTIFY);
-        createCell(wb, row, 5,HorizontalAlignment.LEFT,VerticalAlignment.TOP);
-        createCell(wb, row, 6,HorizontalAlignment.RIGHT,VerticalAlignment.TOP);
+        createCell(wb, row, 1, HorizontalAlignment.CENTER_SELECTION, VerticalAlignment.CENTER);
+        createCell(wb, row, 2, HorizontalAlignment.FILL, VerticalAlignment.CENTER);
+        createCell(wb, row, 3, HorizontalAlignment.FILL, VerticalAlignment.CENTER);
+        createCell(wb, row, 4, HorizontalAlignment.JUSTIFY, VerticalAlignment.JUSTIFY);
+        createCell(wb, row, 5, HorizontalAlignment.LEFT, VerticalAlignment.TOP);
+        createCell(wb, row, 6, HorizontalAlignment.RIGHT, VerticalAlignment.TOP);
 
-        output.crate(wb,"DemonstratesVariousAlignmentOptions");
+        output.crate(wb, "DemonstratesVariousAlignmentOptions");
     }
+
     /**
      * 创建一个单元格并以某种方式对其它
      *
@@ -201,14 +208,255 @@ public class Create {
     }
 
     /**
-     * 迭代行和单元格
+     * 填充和颜色
      * Fills and colors
      */
-    public static void FillsAndColors(){
+    public static void FillsAndColors() {
+        Workbook wb = new HSSFWorkbook();
+        Sheet sheet = wb.createSheet("new sheet");
+        //创建一行并在其中放入一些单元格 。以0行为基础
+        Row row = sheet.createRow(1);
+        //设置样式
+        CellStyle style = wb.createCellStyle();
+        style.setFillBackgroundColor(IndexedColors.AQUA.getIndex());
+        style.setFillPattern(FillPatternType.BIG_SPOTS);
+        Cell cell = row.createCell(1);
+        cell.setCellValue("x");
+        cell.setCellStyle(style);
+
+        style = wb.createCellStyle();
+        style.setFillForegroundColor(IndexedColors.ORANGE.getIndex());
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        cell = row.createCell(2);
+        cell.setCellValue("X");
+        cell.setCellStyle(style);
+
+        output.crate(wb, "FillsAndColors");
+    }
+
+    /**
+     * 合并细胞
+     * Merging cells
+     */
+    public static void MergingCells() {
+        Workbook wb = new HSSFWorkbook();
+        Sheet sheet = wb.createSheet();
+        Row row = sheet.createRow(1);
+        sheet.addMergedRegion(new CellRangeAddress(
+                3, //first row (0-based)           竖列开始的格子
+                4, //last row  (0-based)           竖列结束的格子
+                0, //first column (0-based)         横列开始的格子
+                0  //last column  (0-based)         横列结束的格子
+        ));
+
+        sheet.addMergedRegion(new CellRangeAddress(
+                1, //first row (0-based)           竖列开始的格子
+                3, //last row  (0-based)           竖列结束的格子
+                1, //first column (0-based)         横列开始的格子
+                4  //last column  (0-based)         横列结束的格子
+        ));
+
+        output.crate(wb, "MergingCells");
+    }
+
+
+    public static void test() {
+        Workbook wb = new HSSFWorkbook();
+        Sheet sheet = wb.createSheet();
+        //行
+        Row titleRow = null;
+        //单元格
+        Cell titleCell;
+        sheet.addMergedRegion(new CellRangeAddress(0, 2, 0, 4));
+        titleRow = sheet.createRow(0);
+        titleCell = titleRow.createCell(0);
+        /* titleCell.setCellType(CellType.STRING);*/
+        titleCell.setCellValue("2018年度能源科技进步奖");
+        CellStyle cellStyle = wb.createCellStyle();
+        cellStyle.setAlignment(HorizontalAlignment.CENTER_SELECTION);
+        cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+
+        titleCell.setCellStyle(cellStyle);
+
+        sheet.addMergedRegion(new CellRangeAddress(3, 6, 0, 1));
+        titleRow = sheet.createRow(3);
+        titleCell = titleRow.createCell(0);
+        titleCell.setCellValue("测试竖列");
+        CellStyle cellStyle2 = wb.createCellStyle();
+        //文字旋转
+        cellStyle2.setRotation((short)255);
+        titleCell.setCellStyle(cellStyle2);
 
 
 
-        output.crate(wb,"IterateOverRowsAndCells");
+        sheet.addMergedRegion(new CellRangeAddress(3, 4, 2, 5));
+        titleCell = titleRow.createCell(2);
+        sheet.createRow(4);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("测试竖列1");
+        CellStyle cellStyle1 = wb.createCellStyle();
+        cellStyle1.setAlignment(HorizontalAlignment.CENTER_SELECTION);
+        cellStyle1.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyle1);
+
+
+        sheet.addMergedRegion(new CellRangeAddress(3, 4, 6, 10));
+        titleCell = titleRow.createCell(6);
+        sheet.createRow(4);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("测试竖列2");
+        CellStyle cellStyle5 = wb.createCellStyle();
+        cellStyle5.setAlignment(HorizontalAlignment.CENTER_SELECTION);
+        cellStyle5.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyle5);
+
+
+        Row titleRow1 = null;
+        //单元格
+        sheet.addMergedRegion(new CellRangeAddress(5, 6, 2, 3));
+        //创建新的行对象
+        titleRow1= sheet.createRow(5);
+        titleCell = titleRow1.createCell(2);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("111");
+        CellStyle cellStyle3 = wb.createCellStyle();
+        cellStyle3.setAlignment(HorizontalAlignment.CENTER_SELECTION);
+        cellStyle3.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyle3);
+
+        //单元格
+        sheet.addMergedRegion(new CellRangeAddress(5, 6, 4, 5));
+        //创建新的行对象
+        titleCell = titleRow1.createCell(4);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("222");
+        CellStyle cellStyle4 = wb.createCellStyle();
+        cellStyle4.setAlignment(HorizontalAlignment.CENTER_SELECTION);
+        cellStyle4.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyle4);
+
+
+        String[] title ={"用户名称","年龄","密码"};
+
+        //创建数据
+        String[][] content = CreateData(title);
+
+        //行
+        titleRow = sheet.createRow(7);
+
+        //创建标题
+        for (int i = 0; i < title.length; i++) {
+            titleCell = titleRow.createCell(i);
+            titleCell.setCellValue(title[i]);
+        }
+
+        //创建内容
+        for (int i = 0; i < content.length; i++) {
+            titleRow = sheet.createRow(i + 8);
+            for (int j = 0; j < content[i].length; j++) {
+                //将内容按顺序赋给对应的列对象
+                titleRow.createCell(j).setCellValue(content[i][j]);
+            }
+        }
+
+        output.crate(wb, "test");
+    }
+    //创建数据
+    public static String[][] CreateData(String[] title){
+        List<Map<String, Object>> lists = new ArrayList<>();
+
+        Map<String,Object> map= new HashMap<>();
+        map.put("name","李四");
+        map.put("age",12);
+        lists.add(map);
+
+        Map<String,Object> map1= new HashMap<>();
+        map1.put("name","李四1");
+        map1.put("age",124);
+        lists.add(map1);
+
+        Map<String,Object> map2= new HashMap<>();
+        map2.put("name","李四2");
+        map2.put("age",12000);
+        lists.add(map2);
+
+        String[][] content = new String[lists.size()][title.length];
+        for(int i = 0; i< lists.size();i++){
+
+            content[i] =new String[title.length];
+
+            Map<String,Object> object = lists.get(i);
+
+            if (object.containsKey("name")){
+                content[i][0] = object.get("name").toString();
+            }
+            if (object.containsKey("age")){
+                content[i][1] = object.get("age").toString();
+            }
+        }
+
+
+        return content;
+    }
+
+    public static void excel(){
+
+        List<Map<String, Object>> lists = new ArrayList<>();
+
+        String[] title ={"用户名称","年龄","密码"};
+        Map<String,Object> map= new HashMap<>();
+        map.put("name","李四");
+        map.put("age",12);
+        lists.add(map);
+
+        Map<String,Object> map1= new HashMap<>();
+        map1.put("name","李四1");
+        map1.put("age",124);
+        lists.add(map1);
+
+        Map<String,Object> map2= new HashMap<>();
+        map2.put("name","李四2");
+        map2.put("age",12000);
+        lists.add(map2);
+
+        String[][] content = new String[lists.size()][title.length];
+
+
+
+        Workbook wb = new HSSFWorkbook();
+        Sheet sheet = wb.createSheet();
+        //行
+        Row titleRow = sheet.createRow(0);
+        //单元格
+        Cell titleCell = null;
+
+        //创建标题
+        for (int i = 0; i < title.length; i++) {
+            titleCell = titleRow.createCell(i);
+            titleCell.setCellValue(title[i]);
+        }
+
+        for(int i = 0; i< lists.size();i++){
+            content[i] =new String[title.length];
+            Map<String,Object> object = lists.get(i);
+            if (object.containsKey("name")){
+                content[i][0] = object.get("name").toString();
+            }
+            if (object.containsKey("age")){
+                content[i][1] = object.get("age").toString();
+            }
+        }
+
+        //创建内容
+        for (int i = 0; i < content.length; i++) {
+            titleRow = sheet.createRow(i + 1);
+            for (int j = 0; j < content[i].length; j++) {
+                //将内容按顺序赋给对应的列对象
+                titleRow.createCell(j).setCellValue(content[i][j]);
+            }
+        }
+
+        output.crate(wb, "test1");
     }
 
 
@@ -220,7 +468,10 @@ public class Create {
         /*CreatingDateCells();*/
         /*WorkingWithDifferentTypesOfCells();*/
         /*DemonstratesVariousAlignmentOptions();*/
-        IterateOverRowsAndCells();
+        /*FillsAndColors();*/
+       /* MergingCells();*/
+        test();
+        /*excel();*/
     }
 }
 
