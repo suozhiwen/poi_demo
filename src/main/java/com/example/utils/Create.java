@@ -284,9 +284,8 @@ public class Create {
         titleCell.setCellValue("测试竖列");
         CellStyle cellStyle2 = wb.createCellStyle();
         //文字旋转
-        cellStyle2.setRotation((short)255);
+        cellStyle2.setRotation((short) 255);
         titleCell.setCellStyle(cellStyle2);
-
 
 
         sheet.addMergedRegion(new CellRangeAddress(3, 4, 2, 5));
@@ -311,32 +310,7 @@ public class Create {
         titleCell.setCellStyle(cellStyle5);
 
 
-        Row titleRow1 = null;
-        //单元格
-        sheet.addMergedRegion(new CellRangeAddress(5, 6, 2, 3));
-        //创建新的行对象
-        titleRow1= sheet.createRow(5);
-        titleCell = titleRow1.createCell(2);
-        titleCell.setCellType(CellType.STRING);
-        titleCell.setCellValue("111");
-        CellStyle cellStyle3 = wb.createCellStyle();
-        cellStyle3.setAlignment(HorizontalAlignment.CENTER_SELECTION);
-        cellStyle3.setVerticalAlignment(VerticalAlignment.CENTER);
-        titleCell.setCellStyle(cellStyle3);
-
-        //单元格
-        sheet.addMergedRegion(new CellRangeAddress(5, 6, 4, 5));
-        //创建新的行对象
-        titleCell = titleRow1.createCell(4);
-        titleCell.setCellType(CellType.STRING);
-        titleCell.setCellValue("222");
-        CellStyle cellStyle4 = wb.createCellStyle();
-        cellStyle4.setAlignment(HorizontalAlignment.CENTER_SELECTION);
-        cellStyle4.setVerticalAlignment(VerticalAlignment.CENTER);
-        titleCell.setCellStyle(cellStyle4);
-
-
-        String[] title ={"用户名称","年龄","密码"};
+        String[] title = {"用户名称", "年龄", "密码"};
 
         //创建数据
         String[][] content = CreateData(title);
@@ -352,7 +326,7 @@ public class Create {
          */
         //创建标题
         for (int i = 0; i < title.length; i++) {
-            titleCell = titleRow.createCell(i+1);
+            titleCell = titleRow.createCell(i + 1);
             titleCell.setCellValue(title[i]);
         }
 
@@ -361,72 +335,97 @@ public class Create {
             titleRow = sheet.createRow(i + 8);
             for (int j = 0; j < content[i].length; j++) {
                 //将内容按顺序赋给对应的列对象
-                titleRow.createCell(j+1).setCellValue(content[i][j]);
+                titleRow.createCell(j + 1).setCellValue(content[i][j]);
             }
         }
 
         output.crate(wb, "test");
     }
+
     //创建数据
-    public static String[][] CreateData(String[] title){
+    public static String[][] CreateData(String[] title) {
         List<Map<String, Object>> lists = new ArrayList<>();
 
-        Map<String,Object> map= new HashMap<>();
-        map.put("name","李四");
-        map.put("age",12);
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", 1);
+        map.put("name", "名称1");
+        map.put("model", "规格型号1");
+        map.put("number", 100);
+        map.put("unitPrice", "500");
+        map.put("brand", "华为");
+        map.put("unit", "台");
+        map.put("supplier", "徐州华为总经销");
+        map.put("remark", "自己人");
+        map.put("subtotal", 10000);
         lists.add(map);
 
-        Map<String,Object> map1= new HashMap<>();
-        map1.put("name","李四1");
-        map1.put("age",124);
+        Map<String, Object> map1 = new HashMap<>();
+        map1.put("id", 1);
+        map1.put("name", "名称2");
+        map1.put("model", "规格型号2");
+        map1.put("number", 100);
+        map1.put("unitPrice", "500");
+        map1.put("brand", "华为");
+        map1.put("unit", "台");
+        map1.put("supplier", "徐州华为总经销");
+        map1.put("remark", "自己人");
+        map1.put("subtotal", 10000);
         lists.add(map1);
 
-        Map<String,Object> map2= new HashMap<>();
-        map2.put("name","李四2");
-        map2.put("age",12000);
+        Map<String, Object> map2 = new HashMap<>();
+        map2.put("id", 1);
+        map2.put("name", "名称3");
+        map2.put("model", "规格型号4");
+        map2.put("number", 100);
+        map2.put("unitPrice", "500");
+        map2.put("brand", "华为");
+        map2.put("unit", "台");
+        map2.put("supplier", "徐州华为总经销");
+        map2.put("remark", "自己人");
+        map2.put("subtotal", 10000);
         lists.add(map2);
 
         String[][] content = new String[lists.size()][title.length];
-        for(int i = 0; i< lists.size();i++){
-
-            content[i] =new String[title.length];
-
-            Map<String,Object> object = lists.get(i);
-
-            if (object.containsKey("name")){
-                content[i][0] = object.get("name").toString();
-            }
-            if (object.containsKey("age")){
-                content[i][1] = object.get("age").toString();
-            }
+        for (int i = 0; i < lists.size(); i++) {
+            content[i] = new String[title.length];
+            Map<String, Object> object = lists.get(i);
+            content[i][0] = object.get("id").toString();
+            content[i][1] = object.get("name").toString();
+            content[i][2] = object.get("model").toString();
+            content[i][3] = object.get("number").toString();
+            content[i][4] = object.get("unitPrice").toString();
+            content[i][5] = object.get("brand").toString();
+            content[i][6] = object.get("unit").toString();
+            content[i][7] = object.get("supplier").toString();
+            content[i][8] = object.get("remark").toString();
+            content[i][9] = object.get("subtotal").toString();
         }
 
 
         return content;
     }
 
-    public static void excel(){
+    public static void excel() {
 
         List<Map<String, Object>> lists = new ArrayList<>();
 
-        String[] title ={"用户名称","年龄","密码"};
-        Map<String,Object> map= new HashMap<>();
-        map.put("name","李四");
-        map.put("age",12);
+        String[] title = {"用户名称", "年龄", "密码"};
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", "李四");
+        map.put("age", 12);
         lists.add(map);
 
-        Map<String,Object> map1= new HashMap<>();
-        map1.put("name","李四1");
-        map1.put("age",124);
+        Map<String, Object> map1 = new HashMap<>();
+        map1.put("name", "李四1");
+        map1.put("age", 124);
         lists.add(map1);
 
-        Map<String,Object> map2= new HashMap<>();
-        map2.put("name","李四2");
-        map2.put("age",12000);
+        Map<String, Object> map2 = new HashMap<>();
+        map2.put("name", "李四2");
+        map2.put("age", 12000);
         lists.add(map2);
 
         String[][] content = new String[lists.size()][title.length];
-
 
 
         Workbook wb = new HSSFWorkbook();
@@ -442,13 +441,13 @@ public class Create {
             titleCell.setCellValue(title[i]);
         }
 
-        for(int i = 0; i< lists.size();i++){
-            content[i] =new String[title.length];
-            Map<String,Object> object = lists.get(i);
-            if (object.containsKey("name")){
+        for (int i = 0; i < lists.size(); i++) {
+            content[i] = new String[title.length];
+            Map<String, Object> object = lists.get(i);
+            if (object.containsKey("name")) {
                 content[i][0] = object.get("name").toString();
             }
-            if (object.containsKey("age")){
+            if (object.containsKey("age")) {
                 content[i][1] = object.get("age").toString();
             }
         }
@@ -465,7 +464,296 @@ public class Create {
         output.crate(wb, "test1");
     }
 
+    /**
+     * 采购计划
+     */
+    public static void purchasePlan() {
+        Workbook wb = new HSSFWorkbook();
+        Sheet sheet = wb.createSheet();
+        //行
+        Row titleRow = null;
+        //单元格
+        Cell titleCell;
+        //sheet.addMergedRegion(new CellRangeAddress(0, 2, 0, 4));
+//        titleRow = sheet.createRow(0);
+//        titleCell = titleRow.createCell(0);
+//        /* titleCell.setCellType(CellType.STRING);*/
+//        titleCell.setCellValue("2018年度能源科技进步奖");
+//        CellStyle cellStyle = wb.createCellStyle();
+//        cellStyle.setAlignment(HorizontalAlignment.CENTER_SELECTION);
+//        cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+//
+//        titleCell.setCellStyle(cellStyle);
+//
+//        sheet.addMergedRegion(new CellRangeAddress(3, 6, 0, 1));
+//        titleRow = sheet.createRow(3);
+//        titleCell = titleRow.createCell(0);
+//        titleCell.setCellValue("测试竖列");
+//        CellStyle cellStyle2 = wb.createCellStyle();
+//        //文字旋转
+//        cellStyle2.setRotation((short)255);
+//        titleCell.setCellStyle(cellStyle2);
 
+        /**
+         * addMergedRegion 合并单元格
+         * @param firstRow   第一行索引
+         * @param lastRow    最后一行(包括在内)的索引，必须等于或大于(第一行索引)
+         * @param firstCol   第一列索引
+         * @param lastCol   最后一列(包括在内)的索引，必须等于或大于 第一列索引
+         */
+        sheet.addMergedRegion(new CellRangeAddress(0, 1, 0, 1));
+        titleRow = sheet.createRow(0);
+        titleCell = titleRow.createCell(0);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("计划单号");
+        CellStyle cellStyle1 = wb.createCellStyle();
+        cellStyle1.setAlignment(HorizontalAlignment.CENTER_SELECTION);
+        cellStyle1.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyle1);
+
+
+        sheet.addMergedRegion(new CellRangeAddress(0, 1, 2, 7));
+        titleCell = titleRow.createCell(2);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("CGJH2020000326");
+        CellStyle cellStyle5 = wb.createCellStyle();
+        //左对齐
+        cellStyle5.setAlignment(HorizontalAlignment.LEFT);
+        //垂直居中
+        cellStyle5.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyle5);
+
+
+        //每当切换行就要新生成一个在同一行构建单元格则不需要
+        Row titleRow1 = null;
+        //单元格
+        sheet.addMergedRegion(new CellRangeAddress(2, 3, 0, 1));
+        //创建新的行对象
+        titleRow1 = sheet.createRow(2);
+        titleCell = titleRow1.createCell(0);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("申请人");
+        CellStyle cellStyle3 = wb.createCellStyle();
+        cellStyle3.setAlignment(HorizontalAlignment.CENTER_SELECTION);
+        cellStyle3.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyle3);
+
+        //单元格
+        sheet.addMergedRegion(new CellRangeAddress(2, 3, 2, 3));
+        //创建新的行对象
+        titleCell = titleRow1.createCell(2);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("延续");
+        CellStyle cellStyle4 = wb.createCellStyle();
+        cellStyle4.setAlignment(HorizontalAlignment.LEFT);
+        cellStyle4.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyle4);
+
+        //申请时间标题
+        sheet.addMergedRegion(new CellRangeAddress(2, 3, 4, 5));
+        //创建新的行对象
+        titleCell = titleRow1.createCell(4);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("申请时间");
+        CellStyle cellStyleDateTitle = wb.createCellStyle();
+        cellStyleDateTitle.setAlignment(HorizontalAlignment.LEFT);
+        cellStyleDateTitle.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyleDateTitle);
+
+        //申请时间值
+        sheet.addMergedRegion(new CellRangeAddress(2, 3, 6, 7));
+        //创建新的行对象
+        titleCell = titleRow1.createCell(6);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("2020-06-23 14:51:32");
+        CellStyle cellStyleDateValue = wb.createCellStyle();
+        cellStyleDateValue.setAlignment(HorizontalAlignment.LEFT);
+        cellStyleDateValue.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyleDateValue);
+
+
+        //标题
+        Row titleRow2 = null;
+        //单元格
+        sheet.addMergedRegion(new CellRangeAddress(4, 5, 0, 1));
+        //创建新的行对象
+        titleRow2 = sheet.createRow(4);
+        titleCell = titleRow2.createCell(0);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("标题");
+        CellStyle cellStyleApplyTitle = wb.createCellStyle();
+        cellStyleApplyTitle.setAlignment(HorizontalAlignment.CENTER_SELECTION);
+        cellStyleApplyTitle.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyleApplyTitle);
+
+        //标题值
+        //单元格
+        sheet.addMergedRegion(new CellRangeAddress(4, 5, 2, 7));
+        //创建新的行对象
+        titleCell = titleRow2.createCell(2);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("dhso");
+        CellStyle cellStyleApplyTitleValue = wb.createCellStyle();
+        cellStyleApplyTitleValue.setAlignment(HorizontalAlignment.LEFT);
+        cellStyleApplyTitleValue.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyleApplyTitleValue);
+
+
+        //第四行行采购类型和采购周期
+        Row titleRow3 = null;
+        //单元格 采购类型
+        sheet.addMergedRegion(new CellRangeAddress(6, 7, 0, 1));
+        //创建新的行对象
+        //从第几行开始创建
+        titleRow3 = sheet.createRow(6);
+        //从第几列开始创建
+        titleCell = titleRow3.createCell(0);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("采购类型");
+        CellStyle cellStyleApplyType = wb.createCellStyle();
+        cellStyleApplyType.setAlignment(HorizontalAlignment.CENTER_SELECTION);
+        cellStyleApplyType.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyleApplyType);
+
+        //设备采购
+        //单元格
+        sheet.addMergedRegion(new CellRangeAddress(6, 7, 2, 3));
+        //创建新的行对象
+        titleCell = titleRow3.createCell(2);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("设备采购");
+        CellStyle cellStyleApplyTypeValue = wb.createCellStyle();
+        cellStyleApplyTypeValue.setAlignment(HorizontalAlignment.LEFT);
+        cellStyleApplyTypeValue.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyleApplyTypeValue);
+
+        //采购周期
+        //单元格
+        sheet.addMergedRegion(new CellRangeAddress(6, 7, 4, 5));
+        //创建新的行对象
+        titleCell = titleRow3.createCell(4);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("采购周期");
+        CellStyle cellStyleApplyPeriod = wb.createCellStyle();
+        cellStyleApplyPeriod.setAlignment(HorizontalAlignment.LEFT);
+        cellStyleApplyPeriod.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyleApplyPeriod);
+
+
+        //单元格1年第3季度
+        sheet.addMergedRegion(new CellRangeAddress(6, 7, 6, 7));
+        //创建新的行对象
+        titleCell = titleRow3.createCell(6);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("1年第3季度");
+        CellStyle cellStyleApplyPeriodValue = wb.createCellStyle();
+        cellStyleApplyPeriodValue.setAlignment(HorizontalAlignment.LEFT);
+        cellStyleApplyPeriodValue.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyleApplyPeriodValue);
+
+
+        //第四行行采购类型和采购周期
+        Row titleRow5 = null;
+        //单元格 采购类型
+        sheet.addMergedRegion(new CellRangeAddress(8, 9, 0, 1));
+        //创建新的行对象
+        //从第几行开始创建
+        titleRow5 = sheet.createRow(8);
+        //从第几列开始创建
+        titleCell = titleRow5.createCell(0);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("备注");
+        CellStyle cellStyleRemark = wb.createCellStyle();
+        cellStyleRemark.setAlignment(HorizontalAlignment.CENTER_SELECTION);
+        cellStyleRemark.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyleRemark);
+
+        //单元格1年第3季度
+        sheet.addMergedRegion(new CellRangeAddress(8, 9, 2, 7));
+        //创建新的行对象
+        titleCell = titleRow5.createCell(2);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("122312323123123123");
+        CellStyle cellStyleRemarkValue = wb.createCellStyle();
+        cellStyleRemarkValue.setAlignment(HorizontalAlignment.LEFT);
+        cellStyleRemarkValue.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyleRemarkValue);
+
+
+        String[] title = {"序号", "名称", "规格型号", "数量", "预计单价", "品牌", "单位", "供应商", "备注", "小计"};
+
+        //创建数据
+        String[][] content = CreateData(title);
+
+        //行
+        titleRow = sheet.createRow(10);
+
+
+        /**
+         * 从第 i+1 的竖列开始
+         * titleRow.createCell(i+1)
+         *
+         */
+        //创建标题
+        for (int i = 0; i < title.length; i++) {
+            titleCell = titleRow.createCell(i);
+            titleCell.setCellValue(title[i]);
+        }
+
+        //创建内容
+        for (int i = 0; i < content.length; i++) {
+            titleRow = sheet.createRow(i + 11);
+            for (int j = 0; j < content[i].length; j++) {
+                //将内容按顺序赋给对应的列对象
+                titleRow.createCell(j).setCellValue(content[i][j]);
+            }
+        }
+
+        int row = content.length+1+10;
+        //第四行行采购类型和采购周期
+        Row titleRow6 = null;
+        //单元格 采购类型
+        sheet.addMergedRegion(new CellRangeAddress(row, row+1, 0, 0));
+        //创建新的行对象
+        //从第几行开始创建
+        titleRow6 = sheet.createRow(row);
+        //从第几列开始创建
+        titleCell = titleRow6.createCell(0);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("合计");
+        CellStyle cellStyleTotal = wb.createCellStyle();
+        cellStyleTotal.setAlignment(HorizontalAlignment.CENTER_SELECTION);
+        cellStyleTotal.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyleTotal);
+
+
+        //单元格 采购类型
+        sheet.addMergedRegion(new CellRangeAddress(row, row+1, 1, 3));
+        //创建新的行对象
+        //从第几列开始创建
+        titleCell = titleRow6.createCell(1);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("1533");
+        CellStyle cellStyleTotal1 = wb.createCellStyle();
+        cellStyleTotal1.setAlignment(HorizontalAlignment.RIGHT);
+        cellStyleTotal1.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyleTotal1);
+
+
+        //单元格 采购类型
+        sheet.addMergedRegion(new CellRangeAddress(row, row+1, 4, 9));
+        //创建新的行对象
+        //从第几列开始创建
+        titleCell = titleRow6.createCell(4);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("117585");
+        CellStyle cellStyleTotal2 = wb.createCellStyle();
+        cellStyleTotal2.setAlignment(HorizontalAlignment.RIGHT);
+        cellStyleTotal2.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyleTotal2);
+
+        output.crate(wb, "purchasePlan");
+    }
 
     public static void main(String[] args) {
         /*NewWorkbook();*/
@@ -475,8 +763,9 @@ public class Create {
         /*WorkingWithDifferentTypesOfCells();*/
         /*DemonstratesVariousAlignmentOptions();*/
         /*FillsAndColors();*/
-       /* MergingCells();*/
-        test();
+        /* MergingCells();*/
+//        test();
+        purchasePlan();
         /*excel();*/
     }
 }
