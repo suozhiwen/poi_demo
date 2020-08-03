@@ -1,6 +1,8 @@
 package com.example.utils;
 
 import com.example.entity.User;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
@@ -285,6 +287,8 @@ public class Create {
         CellStyle cellStyle2 = wb.createCellStyle();
         //文字旋转
         cellStyle2.setRotation((short) 255);
+        cellStyle2.setAlignment(HorizontalAlignment.CENTER_SELECTION);
+        cellStyle2.setVerticalAlignment(VerticalAlignment.CENTER);
         titleCell.setCellStyle(cellStyle2);
 
 
@@ -310,34 +314,34 @@ public class Create {
         titleCell.setCellStyle(cellStyle5);
 
 
-        String[] title = {"用户名称", "年龄", "密码"};
+        //String[] title = {"用户名称", "年龄", "密码"};
 
-        //创建数据
-        String[][] content = CreateData(title);
-
-        //行
-        titleRow = sheet.createRow(7);
-
-
-        /**
-         * 从第 i+1 的竖列开始
-         * titleRow.createCell(i+1)
-         *
-         */
-        //创建标题
-        for (int i = 0; i < title.length; i++) {
-            titleCell = titleRow.createCell(i + 1);
-            titleCell.setCellValue(title[i]);
-        }
-
-        //创建内容
-        for (int i = 0; i < content.length; i++) {
-            titleRow = sheet.createRow(i + 8);
-            for (int j = 0; j < content[i].length; j++) {
-                //将内容按顺序赋给对应的列对象
-                titleRow.createCell(j + 1).setCellValue(content[i][j]);
-            }
-        }
+//        //创建数据
+//        String[][] content = CreateData(title);
+//
+//        //行
+//        titleRow = sheet.createRow(7);
+//
+//
+//        /**
+//         * 从第 i+1 的竖列开始
+//         * titleRow.createCell(i+1)
+//         *
+//         */
+//        //创建标题
+//        for (int i = 0; i < title.length; i++) {
+//            titleCell = titleRow.createCell(i + 1);
+//            titleCell.setCellValue(title[i]);
+//        }
+//
+//        //创建内容
+//        for (int i = 0; i < content.length; i++) {
+//            titleRow = sheet.createRow(i + 8);
+//            for (int j = 0; j < content[i].length; j++) {
+//                //将内容按顺序赋给对应的列对象
+//                titleRow.createCell(j + 1).setCellValue(content[i][j]);
+//            }
+//        }
 
         output.crate(wb, "test");
     }
@@ -787,29 +791,129 @@ public class Create {
         Row titleRow = null;
         //单元格
         Cell titleCell;
-        sheet.addMergedRegion(new CellRangeAddress(0, 2, 0, 6));
+        sheet.addMergedRegion(new CellRangeAddress(0, 1, 0, 6));
         titleRow = sheet.createRow(0);
         titleCell = titleRow.createCell(0);
-        /* titleCell.setCellType(CellType.STRING);*/
         titleCell.setCellValue("掘锚一体机履历表掘锚一体机履历表");
         CellStyle cellStyle = wb.createCellStyle();
         cellStyle.setAlignment(HorizontalAlignment.CENTER_SELECTION);
         cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
-
         titleCell.setCellStyle(cellStyle);
 
-        sheet.addMergedRegion(new CellRangeAddress(3, 6, 0, 1));
+
+        sheet.addMergedRegion(new CellRangeAddress(2, 2, 0, 1));
+        titleRow = sheet.createRow(2);
+        titleCell = titleRow.createCell(0);
+        titleCell.setCellValue("设备名称");
+        titleCell.setCellStyle(cellStyle(wb));
+        titleCell = titleRow.createCell(2);
+        titleCell.setCellValue("掘锚一体机");
+        titleCell.setCellStyle(cellStyle(wb));
+        titleCell = titleRow.createCell(3);
+        titleCell.setCellValue("出厂日期");
+        titleCell.setCellStyle(cellStyle(wb));
+
+        sheet.addMergedRegion(new CellRangeAddress(2, 2, 4, 5));
+        sheet.setColumnWidth(4,8000);
+        titleCell = titleRow.createCell(4);
+        titleCell.setCellValue("2008年1月1日");
+        titleCell.setCellStyle(cellStyle(wb));
+
+
+        sheet.addMergedRegion(new CellRangeAddress(3, 3, 0, 1));
         titleRow = sheet.createRow(3);
         titleCell = titleRow.createCell(0);
-        titleCell.setCellValue("测试竖列");
-        CellStyle cellStyle2 = wb.createCellStyle();
+        titleCell.setCellValue("规格型号");
+        titleCell.setCellStyle(cellStyle(wb));
+        titleCell = titleRow.createCell(2);
+        titleCell.setCellValue("掘锚一体机");
+        titleCell.setCellStyle(cellStyle(wb));
+        titleCell = titleRow.createCell(3);
+        titleCell.setCellValue("使用日期");
+        titleCell.setCellStyle(cellStyle(wb));
+
+
+        sheet.addMergedRegion(new CellRangeAddress(3, 3, 4, 5));
+        sheet.setColumnWidth(4,8000);
+        titleCell = titleRow.createCell(4);
+        titleCell.setCellValue("2008年1月1日");
+        titleCell.setCellStyle(cellStyle(wb));
+
+        sheet.addMergedRegion(new CellRangeAddress(4, 4, 0, 1));
+        titleRow = sheet.createRow(4);
+        titleCell = titleRow.createCell(0);
+        titleCell.setCellValue("生产厂家");
+        titleCell.setCellStyle(cellStyle(wb));
+        sheet.addMergedRegion(new CellRangeAddress(4, 4, 2, 5));
+        sheet.setColumnWidth(2,3900);
+        titleCell = titleRow.createCell(2);
+        titleCell.setCellValue("山特维克矿山机械制造有限公司");
+        titleCell.setCellStyle(cellStyle(wb));
+
+
+        sheet.createRow(5);
+        //sheet.addMergedRegion(new CellRangeAddress(5, 5, 0, 0));
+        titleRow = sheet.createRow(5);
+        //设置行高
+        titleRow.setHeightInPoints(70);
+
+        titleCell = titleRow.createCell(0);
+        titleCell.setCellValue("技术参数");
+        CellStyle cellStyle1=wb.createCellStyle();
+
+        //设置粗体
+        HSSFFont font = (HSSFFont) wb.createFont();
+        font.setBold(true);
+        cellStyle1.setFont(font);
         //文字旋转
-        cellStyle2.setRotation((short)255);
+        cellStyle1.setRotation((short)255);
+        //字体居中
+        cellStyle1.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyle1);
+
+
+        sheet.addMergedRegion(new CellRangeAddress(5, 5, 1, 5));
+        //设置列宽
+        sheet.setColumnWidth(1,6000);
+        titleCell = titleRow.createCell(1);
+        titleCell.setCellValue("1.截割高度范围：2.8m-4.2m，2.生产能力：装载能力25t/min，截割8.5-21t/min，3.总功率：546KW（截割270KW+油泵132KW+运输机2*36KW+装载2*36KW），4.额定电压：1140V，5.外形尺寸（L*W*H）：作业11237mmx5400mmx2.8m/4.2m、行走11237mmx4900mmx2.8m/4.2m，6.最大接地压力：28N/cm²，7.离地间隙：270mm，8.行走时最大侧倾角：±4°、行走时最大前倾角：±18°、截割时最大侧倾角：±4°、截割时最大前倾角：±12°，9.6.总重量：105t。");
+        CellStyle cellStyle2 = wb.createCellStyle();
+        cellStyle2.setWrapText(true);
         titleCell.setCellStyle(cellStyle2);
+
+
+
+//        sheet.addMergedRegion(new CellRangeAddress(3, 6, 0, 1));
+//        titleRow = sheet.createRow(3);
+//        titleCell = titleRow.createCell(0);
+//        titleCell.setCellValue("测试竖列");
+//        CellStyle cellStyle2 = wb.createCellStyle();
+//        //文字旋转
+//        cellStyle2.setRotation((short)255);
+//        titleCell.setCellStyle(cellStyle2);
 
         output.crate(wb, "purchasePlan111");
     }
 
+    private static CellStyle cellStyle(Workbook wb){
+       CellStyle cellStyle1 = wb.createCellStyle();
+       //设置文字水平居中
+        cellStyle1.setAlignment(HorizontalAlignment.CENTER_SELECTION);
+        //设置文字垂直居中
+        cellStyle1.setVerticalAlignment(VerticalAlignment.CENTER);
+
+        //设置字体加粗
+        HSSFFont font = (HSSFFont) wb.createFont();
+        font.setBold(true);
+        cellStyle1.setFont(font);
+
+        //加边框
+        cellStyle1.setBorderBottom(BorderStyle.THIN);
+        cellStyle1.setBorderLeft(BorderStyle.THIN);
+        cellStyle1.setBorderRight(BorderStyle.THIN);
+        cellStyle1.setBorderTop(BorderStyle.THIN);
+        return cellStyle1;
+    }
 
     public static void main(String[] args) {
         /*NewWorkbook();*/
@@ -820,7 +924,7 @@ public class Create {
         /*DemonstratesVariousAlignmentOptions();*/
         /*FillsAndColors();*/
         /* MergingCells();*/
-//        test();
+       // test();
 
         aaaaa();
        // purchasePlan();
