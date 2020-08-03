@@ -848,7 +848,18 @@ public class Create {
         sheet.setColumnWidth(2,3900);
         titleCell = titleRow.createCell(2);
         titleCell.setCellValue("山特维克矿山机械制造有限公司");
-        titleCell.setCellStyle(cellStyle(wb));
+        CellStyle cellStyle9 = cellStyle(wb);
+        titleCell.setCellStyle(cellStyle9);
+
+        //循环赋值 打印边框
+        titleRow.createCell(1);
+        titleRow.createCell(3);
+        titleRow.createCell(4);
+        titleRow.createCell(5);
+        for (Cell cell : titleRow) {
+            cell.setCellStyle(cellStyle9);
+        }
+        
 
 
         sheet.createRow(5);
