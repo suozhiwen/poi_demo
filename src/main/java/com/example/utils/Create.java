@@ -474,25 +474,7 @@ public class Create {
         Row titleRow = null;
         //单元格
         Cell titleCell;
-        //sheet.addMergedRegion(new CellRangeAddress(0, 2, 0, 4));
-//        titleRow = sheet.createRow(0);
-//        titleCell = titleRow.createCell(0);
-//        /* titleCell.setCellType(CellType.STRING);*/
-//        titleCell.setCellValue("2018年度能源科技进步奖");
-//        CellStyle cellStyle = wb.createCellStyle();
-//        cellStyle.setAlignment(HorizontalAlignment.CENTER_SELECTION);
-//        cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
-//
-//        titleCell.setCellStyle(cellStyle);
-//
-//        sheet.addMergedRegion(new CellRangeAddress(3, 6, 0, 1));
-//        titleRow = sheet.createRow(3);
-//        titleCell = titleRow.createCell(0);
-//        titleCell.setCellValue("测试竖列");
-//        CellStyle cellStyle2 = wb.createCellStyle();
-//        //文字旋转
-//        cellStyle2.setRotation((short)255);
-//        titleCell.setCellStyle(cellStyle2);
+
 
         /**
          * addMergedRegion 合并单元格
@@ -710,23 +692,29 @@ public class Create {
         }
 
         int row = content.length+1+10;
+        System.out.println("titleRow6:"+row);
         //第四行行采购类型和采购周期
         Row titleRow6 = null;
         //单元格 采购类型
-        sheet.addMergedRegion(new CellRangeAddress(row, row+1, 0, 0));
+//        sheet.addMergedRegion(new CellRangeAddress(row, row+1, 0, 0));
+        sheet.addMergedRegion(new CellRangeAddress(row, row+5, 0, 0));
         //创建新的行对象
         //从第几行开始创建
         titleRow6 = sheet.createRow(row);
         //从第几列开始创建
         titleCell = titleRow6.createCell(0);
-        titleCell.setCellType(CellType.STRING);
+        //titleCell.setCellType(CellType.STRING);
         titleCell.setCellValue("合计");
         CellStyle cellStyleTotal = wb.createCellStyle();
-        cellStyleTotal.setAlignment(HorizontalAlignment.CENTER_SELECTION);
+        //文字旋转
+        cellStyleTotal.setRotation((short)255);
+        //cellStyleTotal.setAlignment(HorizontalAlignment.CENTER_SELECTION);
         cellStyleTotal.setVerticalAlignment(VerticalAlignment.CENTER);
+
         titleCell.setCellStyle(cellStyleTotal);
 
 
+        System.out.println("titleRow6-1:"+row);
         //单元格 采购类型
         sheet.addMergedRegion(new CellRangeAddress(row, row+1, 1, 3));
         //创建新的行对象
@@ -740,6 +728,7 @@ public class Create {
         titleCell.setCellStyle(cellStyleTotal1);
 
 
+        System.out.println("titleRow6-2:"+row);
         //单元格 采购类型
         sheet.addMergedRegion(new CellRangeAddress(row, row+1, 4, 9));
         //创建新的行对象
@@ -752,8 +741,75 @@ public class Create {
         cellStyleTotal2.setVerticalAlignment(VerticalAlignment.CENTER);
         titleCell.setCellStyle(cellStyleTotal2);
 
+
+        row = content.length+1+10+2;
+        System.out.println("titleRow6-3:"+row);
+        titleRow6 = sheet.createRow(row);
+        //单元格 采购类型
+        sheet.addMergedRegion(new CellRangeAddress(row, row+1, 1, 3));
+        //创建新的行对象
+        //从第几列开始创建
+        titleCell = titleRow6.createCell(1);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("117585111111");
+        CellStyle cellStyleTotal3 = wb.createCellStyle();
+        cellStyleTotal3.setAlignment(HorizontalAlignment.RIGHT);
+        cellStyleTotal3.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyleTotal3);
+
+
+
+        row = content.length+1+10+4;
+        System.out.println("titleRow6-4:"+row);
+        titleRow6 = sheet.createRow(row);
+        //单元格 采购类型
+        sheet.addMergedRegion(new CellRangeAddress(row, row+1, 1, 3));
+        //创建新的行对象
+        //从第几列开始创建
+        titleCell = titleRow6.createCell(1);
+        titleCell.setCellType(CellType.STRING);
+        titleCell.setCellValue("117585111111");
+        CellStyle cellStyleTotal5 = wb.createCellStyle();
+        cellStyleTotal5.setAlignment(HorizontalAlignment.RIGHT);
+        cellStyleTotal5.setVerticalAlignment(VerticalAlignment.CENTER);
+        titleCell.setCellStyle(cellStyleTotal5);
+
+
+
         output.crate(wb, "purchasePlan");
     }
+
+
+    public static void aaaaa(){
+        Workbook wb = new HSSFWorkbook();
+        Sheet sheet = wb.createSheet();
+        //行
+        Row titleRow = null;
+        //单元格
+        Cell titleCell;
+        sheet.addMergedRegion(new CellRangeAddress(0, 2, 0, 6));
+        titleRow = sheet.createRow(0);
+        titleCell = titleRow.createCell(0);
+        /* titleCell.setCellType(CellType.STRING);*/
+        titleCell.setCellValue("掘锚一体机履历表掘锚一体机履历表");
+        CellStyle cellStyle = wb.createCellStyle();
+        cellStyle.setAlignment(HorizontalAlignment.CENTER_SELECTION);
+        cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+
+        titleCell.setCellStyle(cellStyle);
+
+        sheet.addMergedRegion(new CellRangeAddress(3, 6, 0, 1));
+        titleRow = sheet.createRow(3);
+        titleCell = titleRow.createCell(0);
+        titleCell.setCellValue("测试竖列");
+        CellStyle cellStyle2 = wb.createCellStyle();
+        //文字旋转
+        cellStyle2.setRotation((short)255);
+        titleCell.setCellStyle(cellStyle2);
+
+        output.crate(wb, "purchasePlan111");
+    }
+
 
     public static void main(String[] args) {
         /*NewWorkbook();*/
@@ -765,7 +821,11 @@ public class Create {
         /*FillsAndColors();*/
         /* MergingCells();*/
 //        test();
-        purchasePlan();
+
+        aaaaa();
+       // purchasePlan();
+
+
         /*excel();*/
     }
 }
